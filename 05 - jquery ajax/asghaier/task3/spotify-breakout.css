@@ -1,0 +1,220 @@
+body {
+  display: flex;
+  flex-wrap: wrap;
+  background-color: #000
+}
+input[type=text], input[type=search] {
+  width: 200px;
+    height: 20px;
+    border-radius: 30px;
+    padding: 3px 3px 3px 50px;
+    outline: none;
+  display: block;
+  font-size: 14pt;
+  color: #8d0ebd;
+  border: 2px solid #dc0f64;
+  transition: width 0.3s ease-in-out;
+  -webkit-transition: width 0.3s ease-in-out;
+}
+
+input[type=text]:focus, input[type=search]:focus {
+  width: 250px;
+}
+
+#result {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+#type_list{
+  color: #fff
+}
+
+.artist {
+  flex: 1;
+  max-height: 150px;
+  min-width: 100px;
+  max-width: 150px;
+}
+
+.artist img {
+  width: 100%;
+  transition: opacity 0.2s;
+}
+
+.search_icon{
+    width: auto;
+    height: auto;
+    min-width: 30px;
+    padding: 2px 7px;
+    margin: 1px 0px 1px 1px;
+    font-size: 16px;
+    font-weight: bolder;
+    line-height: 20px;
+    text-align: center;
+    text-shadow: 0 1px 0 #ffffff;
+    position: absolute;
+    left: 1px;
+    top: 1px;
+    bottom: 1px;
+    z-index: 3;
+    border-radius: 13px 0px 0px 13px;
+    background-color: #dc0f64;
+    border: 1px #dc0f64 solid;
+    color: #fff;
+}
+
+.main_search{
+    position: relative;
+    display: inline-block;
+    width: 80%;
+    min-width: 500px;
+    border: 0px solid #000;
+
+}
+
+.search_content{
+    min-width: 200px;
+    position: relative;
+    margin-bottom: 20px;
+    display: inline-block;
+    width: 100%;
+}
+
+#albums_content{
+  width: 100%; 
+  position: absolute; 
+  display: inline-block;
+}
+
+.album{
+  position: relative;
+    display: inline-block;
+    margin: 10px 7px 10px 7px;
+    box-shadow: 7px -8px 10px rgba(29, 142, 137, 0.65);
+   
+}
+
+.artists{
+    text-align: center;
+    position: relative;
+    display: inline-block;
+    border: 1px #279491 solid;
+    margin: 10px 7px 10px 7px;
+    box-shadow: 7px -8px 10px rgba(29, 142, 137, 0.65);
+   
+}
+
+.details{
+    border: 0px #fff solid;
+    background-color: rgba(255, 255, 255, 0.85);
+    height: 50px;
+    width: 50px;
+    position: absolute;
+    display: inline-block;
+    z-index: 10;
+    top: 0px;
+    bottom: 0px;
+    left: 0px;
+    right: 0px;
+    margin: auto;
+    color: #279491;
+    font-size: 30pt;
+    text-align: center;
+    cursor: pointer;
+}
+
+#details_content{
+    position: fixed;
+    display: none;
+    width: 100%;
+    top: 80px;
+        bottom: 10px;
+    margin: auto;
+    left: 0px;
+    right: 0px;
+    background-color: rgba(16, 12, 12, 0.92);
+    min-height: 200px;
+    height: auto;
+    border: 1px #fed234 solid;
+    z-index: 99;
+}
+
+#inf_close{
+  right: 20px;
+    position: absolute;
+    display: inline-block;
+    top: 20px;
+    color: #900303;
+    font-size: 25pt;
+    cursor: pointer;
+    z-index: 100;
+}
+
+.album_inf_elem{
+    position: relative;
+    display: inline-block;
+    border: 3px #ae08d8 solid;
+    padding-left: 15px;
+    padding-right: 15px;
+    border-radius: 100px;
+    text-align: center;
+    background: #8a1d72;
+    margin: 10px 10px 10px 10px;
+    box-shadow: 7px 8px 17px #000;
+    color: #fff;
+}
+
+.album_info_content_wraper{
+    position: relative;
+    margin: auto;
+    text-align: center;
+    display: block;
+}
+
+.album_tracks{
+  position: relative;
+}
+
+#album_tracks_content{
+  position: relative;
+  border-collapse:collapse;
+}
+
+#album_general_info{
+  position: relative;
+  border-collapse:collapse;
+}
+
+#album_general_info tr td{
+  padding-left: 30px;
+}
+
+
+#album_tracks_content tr{
+  color: #fff;
+  cursor: pointer;
+}
+
+.triangle-right {
+    width: 0;
+    height: 0;
+    padding-top: 6px;
+    padding-bottom: 6px;
+    padding-left: 6px;
+    display: inline-block;
+    overflow: hidden;
+
+}
+.triangle-right:after {
+    content: "";
+    display: inline-block;
+    width: 0;
+    height: 0;
+    margin-top:-100px;
+    margin-left: -100px;
+    
+    border-top: 100px solid transparent;
+    border-bottom: 100px solid transparent;
+    border-left: 100px solid #fff;
+}

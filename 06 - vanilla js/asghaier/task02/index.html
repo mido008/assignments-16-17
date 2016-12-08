@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <link rel="stylesheet" href="style.css">
+        <script src="https://use.fontawesome.com/b5ad55101b.js"></script>
+    </head>
+    <body>
+        <div id="header">
+            <div id="button_container">
+                <div id="play" class="button fa fa-play" style="font-size: 14pt; display: table-cell;">
+                </div>
+                <div id="stop" class="button fa fa-stop" style="ont-size: 14pt; display: table-cell;">
+                </div>
+            </div>
+        </div>
+        <div id="container">
+
+        </div>
+    </body>
+
+    <script type="text/javascript">
+
+        var req = new XMLHttpRequest();
+        function get_articles(url)
+        {
+            //console.log(' url  :'+ url)
+            var proxy = "http://localhost/xml-proxy.php?url="+url;
+            req.open('get', proxy);
+            req.addEventListener('readystatechange', function(){
+              //  console.log('##########')
+                var result;
+                if(req.readyState === 4) {
+                    result = JSON.parse(req.responseText);
+                    set_articles(result);
+                }
+            });
+
+            req.send();
+
+        }
+        function set_articles(articles)
+        {
+            document.getElementById('container').innerHTML = '';
+//console.log(articles)
+            articles.channel.item.forEach(function(element){
+               // console.log(element)
+                var divElm = document.createElement('div');
+                var titleElm = document.createElement('p');
+                var imgElm = document.createElement('div');
+                var bottomElm = document.createElement('div');
+
+                titleElm.innerHTML = element.title
+                titleElm.classList.add('title');
+                divElm.classList.add('article_content');
+                imgElm.classList.add('desc');
+
+                if(articles.channel.image) {
+                    var descr = '<img src="'+articles.channel.image.url+'">';
+                    descr += '<p>'+element.description+'</p>';
+                    descr += '<br><p><a href='+element.link+'> Read more...</a></p>';
+                    imgElm.innerHTML = descr;
+                } else{
+                    imgElm.innerHTML = element.description;
+                }
+/*
+<img src="https://i.kinja-img.com/gawker-media/image/upload/s--fHdqZp2Y--/c_fit,fl_progressive,q_80,w_636/b2gbr0nhucjmk7cvbfap.png" />
+<p>It’s not just heavy smokers that are setting themselves 
+up for a future of cancer and heart disease. A new study published in 
+<em>JAMA Internal Medicine</em> shows that people who averaged just one
+ cigarette per day still had a 64 percent chance of dying early, compared
+  to nonsmokers.
+  <br></p>
+  <p>
+  <a href="http://vitals.lifehacker.com/if-you-re-a-non-smoker-who-only-smokes-casually-you-1789696990">
+  Read more...
+  </a></p>
+  <img src="http://feeds.feedburner.com/~r/lifehacker/full/~4/2MK_3Q4qKcs" height="1" width="1" alt=""/>
+  */
+                bottomElm.classList.add('pub');
+                bottomElm.innerHTML = 'publication: <span>'+element.pubDate+'</span>';
+
+                divElm.appendChild(titleElm);
+                divElm.appendChild(imgElm);
+                divElm.appendChild(bottomElm);
+                
+                document.getElementById('container').appendChild(divElm);
+
+            })
+        }
+        
+        var sourceListe = [
+            'http://feeds.gawker.com/lifehacker/full',
+            'https://www.technologyreview.com/stories.rss',
+            'http://feeds.feedburner.com/Techcrunch/europe',
+            'http://feeds.feedburner.com/HowToGeek'
+        ]
+
+        var intervall;
+        function auto_play()
+        {
+            var random_source = Math.round(Math.random() * 4);
+            //console.log(random_source)
+            get_articles(sourceListe[random_source]);
+            intervall = setTimeout(auto_play, 10000);
+        }
+
+
+        var stop_bt = document.getElementById('stop');
+        var play_bt = document.getElementById('play');
+        stop_bt.style.display = 'none';
+        play_bt.addEventListener('click', function(){
+            play_bt.style.display = 'none';
+            stop_bt.style.display = 'table-cell';
+            //var random_source = Math.round(Math.random() * 4);
+            //console.log(random_source)
+            //auto_play = setInterval(get_articles(sourceListe[random_source]), 1000);
+            auto_play();
+        });
+        stop_bt.addEventListener('click', function(){
+            stop_bt.style.display = 'none';
+            play_bt.style.display = 'table-cell';
+            clearInterval(intervall);
+        });
+
+    get_articles(sourceListe['1']);
+
+        /*
+• http://feeds.gawker.com/lifehacker/full
+• https://www.technologyreview.com/stories.rss
+• http://feeds.feedburner.com/Techcrunch/europe
+• http://feeds.feedburner.com/HowToGeek
+        */
+    </script>
+</html>

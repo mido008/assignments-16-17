@@ -1,0 +1,151 @@
+.headerContent{
+  width: 80%;
+  margin: auto;
+  min-height: 20px;
+  display: block;
+  position: relative;
+  border: 0px red solid;
+}
+.inputs_content{
+  position: relative;
+}
+.inputs_icon{
+    width: auto;
+    height: auto;
+    min-width: 16px;
+    padding: 4px 5px;
+    font-size: 14px;
+    font-weight: normal;
+    line-height: 20px;
+    text-align: center;
+    text-shadow: 0 1px 0 #ffffff;
+    background-color: #eeeeee;
+    position:absolute;
+    left:3px;
+    top:3px;
+    bottom:3px;
+    z-index:3;
+
+/*
+  border-width: 1px;
+  border-color: cccccc;
+  border-style: solid;
+  position: relative;
+  width: 40%;
+*/
+}
+
+.inputs{
+
+  padding:6px 6px 6px 30px ;
+/*
+background: -webkit-linear-gradient(90deg, red,10%, #fff, 10%, #fff);
+background: -o-linear-gradient(90deg, red,10%, #fff, 10%, #fff);
+background: -moz-linear-gradient(90deg, red,10%, #fff, 10%, #fff);
+background: linear-gradient(90deg, red,10%, #fff, 10%, #fff);
+*/
+/*
+  padding: 4px;
+  outline:none;
+  border-width: 0px 0px 0px 1px;
+*/
+}
+
+.buttons{
+  width:auto;
+  height: auto;
+  min-width: 150px;
+  min-height: 30px;
+  border-radius: 10px;
+  position: relative;
+  display: inline-block;
+  margin-left: 45%;
+  margin-top: 25px;
+  background-color: #24a5d6;
+  cursor: pointer;
+  color: #fff;
+  font-size: 12pt;
+  font-family: cursive;
+}
+#title{
+  position: relative;;
+  width: 60%;
+  margin: auto;
+  text-align: center;
+  font-size: 28pt;
+  font-weight: bold;
+  font-family: cursive;
+  color: #ffffff;
+}
+
+.content{
+  width: 100%;
+  height: 100%;
+  display: block;
+  position: relative;
+  background-image: url("tmpl1.jpg");
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+body{
+  background-image: url("tmpl3.jpg");
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+.login{
+  align-items: center;
+  width: 49%;
+  min-height: 50%;
+  display: inline-block;
+  position: relative;
+  border-right: 2px #309c40 dotted;
+}
+
+.signIn{
+  align: center;
+  width: 49%;
+  min-height: 50%;
+  display: inline-block;
+  position: relative;;
+}
+
+#home{
+  border: 0px #000 solid;
+  position: relative;
+  padding-top: 20%;
+  padding-left: 18%;
+  width: 70%;
+}
+
+.action_title{
+  position: relative;;
+  width: 60%;
+  margin: auto;
+  margin-bottom: 30px;
+  text-align: center;
+  font-size: 28pt;
+  font-weight: bold;
+  font-family: cursive;
+  color: #9a0f96;
+}
+tr > td > label{
+  font-size: 14pt;
+  font-family: cursive;
+}
+#logout{
+  display: none;
+  width:auto;
+  height: auto;
+  min-width: 150px;
+  min-height: 30px;
+  border-radius: 10px;
+  position: relative;
+  margin-left: 45%;
+  margin-top: 25px;
+  background-color: #24a5d6;
+  cursor: pointer;
+  color: #fff;
+  font-size: 12pt;
+  font-family: cursive;
+}

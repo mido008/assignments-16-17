@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="stylesheet" href="style.css">
+        <script src="https://use.fontawesome.com/b5ad55101b.js"></script>
+       
+    
+        <style>
+        .button{
+            border: 0px #000 solid;
+            border-radius: 50%;
+            width: 45px;
+            height: 45px;
+            padding-top: 8px;
+            text-align: center;
+            cursor: pointer;
+            background-color: #f6ffa7;
+            font-size:30pt; 
+            color: #4d196b; 
+        }
+            .button:hover{
+                background-color: #000;
+                color: #fff;
+                
+            }
+        </style>
+    </head>
+    <body>
+        <table border="0" align="center" class="container">
+                <tr>
+                    <td width="19%" align="right">
+                        <div id="prev" class="button fa fa-chevron-left" style="padding-right: 6px;">
+                    </td>
+                    <td>
+                         <div id="img_content"></div>
+                    </td>
+                    <td width="19%">
+                        <div id="next" class="button fa fa-chevron-right" style="padding-left: 6px;">
+                    </td>
+                </tr>
+            </table>
+         <script type="text/javascript">
+
+            document.querySelectorAll('.button div').forEach(function(el){
+                el.style.height = document.querySelector('.button').clientHeight+'px';
+                console.log(document.querySelector('.button').clientHeight+'px')
+            })
+
+            var imagesListe = [];
+            for (var i = 0; i < 8; i++) {
+                imagesListe[i] = '0'+(i+1)+'.jpg';
+            }
+
+            function cahngeImage(index)
+            {
+                document.getElementById("img_content").innerHTML = '<img src="'+imagesListe[index]+'">';
+            }
+            
+            var slide_index = 0;
+            cahngeImage(slide_index);
+            
+
+            document.getElementById('prev').addEventListener('click', function(){
+                slide_index = (((slide_index-1)%8)+8)%8;
+                cahngeImage(slide_index);
+            });
+            document.getElementById('next').addEventListener('click', function(){
+                slide_index = (slide_index+1)%8;
+                cahngeImage(slide_index);
+            });
+
+        </script>
+    </body>
+</html>
+<!--
+<div id="container" style="display:none">
+            <div id="prev" class="button">
+                <div style="float: right">
+                    <div class="fa fa-chevron-left" style="right:0"></div>
+                </div>
+            </div>
+            <div id=""></div>
+            <div id="next" class="button" style="float: right"><div class="fa fa-chevron-right"></div></div>
+        </div>
+-->

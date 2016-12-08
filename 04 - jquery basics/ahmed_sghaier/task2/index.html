@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>
+		
+	</title>
+	<script src="bower_components/zxcvbn/dist/zxcvbn.js"></script>
+	<script src="https://use.fontawesome.com/b5ad55101b.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+	<style type="text/css">
+		.level{
+			position: relative;
+			width: 80px;
+			height: 5px;
+			background-color: #cccccc; 
+			border-radius: 10px;
+		}
+		.inputs_icon{
+		    width: auto;
+		    height: auto;
+		    min-width: 30px;
+		    padding: 4px 5px;
+		    margin: 1px 0px 1px 1px;
+		    font-size: 14px;
+		    font-weight: normal;
+		    line-height: 20px;
+		    text-align: center;
+		    text-shadow: 0 1px 0 #ffffff;
+		    background-color: #eeeeee;
+		    position:absolute;
+		    left:1px;
+		    top:1px;
+		    bottom:1px;
+		    z-index:3;
+		    border-radius: 13px 0px 0px 13px;
+		    background-color: #b572e8;
+		    border: 1px #ae2dff solid;
+		    color: #fff;
+		}
+
+	</style>
+	<script type="text/javascript">
+		$(document).ready(function(){
+			$('#pswd').on("change paste keyup", function(){
+
+				var score = zxcvbn(this.value).score;
+
+				var div_color = '';
+				switch(score){
+					case 0:
+						if(this.value === ''){
+							div_color = '#cccccc';
+						} else {
+							div_color = "#fd3232";	
+							//d4c61a
+						}
+						break;
+					case 1:
+						div_color = "#f77d36";
+						break;
+					case 2:
+						div_color = "#f3e10d";
+						break;
+					case 3:
+						div_color = "#d4c61a";
+						break;
+					case 4:
+						div_color = "#0bde43";
+						break;
+				}
+
+				for(var i=0; i< 5; i++) {
+					
+					if(i <= score) {
+						$('#l'+i).css({'background-color': div_color});
+					} else{
+						$('#l'+i).css({'background-color': '#cccccc'});
+					}
+				}
+			});
+		});
+	</script>
+</head>
+<body>
+<div style="width: 700px;">
+	<table align="center">
+		<tr>
+			<td >
+				<label> Passwort :</label>
+			</td>
+			<td colspan="5" style="position: relative;">
+				<div class="fa fa-key inputs_icon"></div>
+				<input type="" id="pswd" style="position: relative; width: 380px; height: 20px; padding:6px 6px 6px 45px; border-radius: 15px 15px; border-width: 2px; border-color: #ae2dff; outline: 0px; font-size: 16pt;">
+			</td>
+		</tr>
+		<tr>
+			<td></td>
+			<td class="level" id="l0"></td>
+			<td class="level" id="l1"></td>
+			<td class="level" id="l2"></td>
+			<td class="level" id="l3"></td>
+			<td class="level" id="l4"></td>
+		</tr>
+	</table>
+	
+</div>
+</body>
+</html>

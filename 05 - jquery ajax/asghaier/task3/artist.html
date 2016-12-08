@@ -1,0 +1,179 @@
+<script type="text/javascript">
+    function getArtists(data)
+    {
+        
+        $("#inf_close").on('click', function(){
+            $("#details_content").fadeOut();
+        });
+console.log('öööölll',data.artists.items)
+        data.artists.items.forEach(function(item){
+            console.log('äää',item)
+            var liElm = $('<li class="artists">');
+            var extraElm = $('<div id="'+ item.id +'" class="fa fa-eye details" aria-hidden="true">');
+            var imgElm = $('<img style="border: 2px #ffffff solid; width: 304px; height: 304px;"><br>');
+            var titElm = $('<p style="color: #fff">');
+
+            
+           // var songs = getAlbumsongs(titElm, item.href);
+
+            titElm.html(item.name);
+            imgElm.attr('src', item.images[1].url);
+            extraElm.hide();
+            
+            extraElm.on('click', function(element){
+                $("#details_content").fadeIn();
+                getartistInfo(element, item);
+            });
+
+            imgElm.on('mouseenter', function(){
+                $('#'+item.id).fadeIn();
+            });
+            liElm.on('mouseout', function(){
+                $('#'+item.id).fadeOut();
+            });
+            
+            liElm.append(imgElm);
+            liElm.append(titElm);
+            liElm.append(extraElm);
+            console.log(liElm)
+            $('#artists_content ul').append(liElm);
+        });
+    }
+
+    function getartistInfo(elem, item)
+    {
+        $.get(
+            item.href,
+            {
+
+            }
+        ).done(function(infos){
+            console.log(infos);
+            
+            var albName = $('<tr>');
+            var albNameTdElm = $('<td align="left" colspan="0">');
+            albNameTdElm.append("<p>Album's name: "+infos.name+" </p>");
+           // albNameTdElm.append("<p>"+ infos.name +"</p>");
+            albName.append(albNameTdElm);
+            
+            // $("#album_name").empty();            
+            // $("#album_name").text(infos.name);
+
+            var albLabel = $('<tr>');
+            var albLabelTdElm = $('<td align="left" colspan="0">');            
+            albLabelTdElm.append("<p> Album's Label: "+infos.label+" </p>");
+            // albLabelTdElm.append("<p>"+ infos.label +"</p>");
+            albLabel.append(albLabelTdElm);  
+                                 
+           // $("#album_label").empty();
+           // $("#album_label").text(infos.label);
+
+            var albArtist = $('<tr>');
+            var albArtistTdElm = $('<td align="left">');
+            //albArtistTdElm.append("<p> Artists </p>");
+            var artists = "";
+            infos.artists.forEach(function(artist){
+                artists +=  artist.name+"<br>";
+            });
+            //albArtistTdElm.append("<p>"+ artists +"</p>");
+            albArtistTdElm.append("<p> Artists: "+artists+" </p>");
+            albArtist.append(albArtistTdElm);            
+
+
+            //$("#album_artist").empty();
+           // infos.artists.forEach(function(artist){
+           //     $("#album_artist").append(artist.name);
+           //     $("#album_artist").append("<br>");
+           // })
+
+            var albRelease = $('<tr>');
+            var albReleaseTdElm = $('<td align="left">');
+            albReleaseTdElm.append("<p> Release date: "+infos.release_date+" </p>");
+         //   albReleaseTdElm.append("<p>"+ infos.release_date +"</p>");
+            albRelease.append(albReleaseTdElm);
+
+            // $("#album_release").empty();
+            // $("#album_release").text(infos.release_date);
+
+            var albPop = $('<tr>');
+            var albPopTdElm = $('<td align="left" colspan="0">');
+            albPopTdElm.append("<p> Popularity: "+infos.Popularity+" </p>");
+          //  albPopTdElm.append("<p>"+ infos.Popularity +"</p>");
+            albPop.append(albPopTdElm);
+
+            // $("#album_popul").empty();
+            // $("#album_popul").text(infos.popularity);
+
+            var albCPR = $('<div class="album_inf_elem">');
+            albCPR.append("<p> Copy rights </p>");
+            var copy_rihgts ="";
+            infos.copyrights.forEach(function(copyright){
+                copy_rihgts += copyright.text + "<br>";
+            });
+            albCPR.append("<p>"+ copy_rihgts +"</p>");
+            // $("#album_copy_right").empty(infos.name);
+            // infos.copyrights.forEach(function(copyright){
+            //     $("#album_copy_right").append(copyright.text);
+            //     $("#album_copy_right").append("<br>");
+            // });
+
+            $('#album_general_info').empty();
+            $('#album_general_info').append('<tr> <td align="left" id="track_cover" rowspan="0"></td></tr>');
+            
+                    $.get(item.artists[0].href, {   
+                    }).done(function(data){
+                        console.log(data.images[1]);
+                        $('#track_cover').html('<img width="300px" height="300px" src="'+data.images[1].url+'">');
+                    });
+
+            $('#album_general_info').append(albArtist);
+            $('#album_general_info').append(albRelease);
+            $('#album_general_info').append(albPop);
+
+            $('#album_general_info').append(albName);
+            $('#album_general_info').append(albLabel);
+          //  $('#album_general_info').append(albCPR);
+
+            infos.tracks.items.forEach(function(item){
+                var trElm = $('<tr valign="bottom" style="padding-top:10px; padding-bottom:10px; border-bottom:1px #4d652e solid">');
+                var trackNameElm = $('<td style="padding-top: 10px">');
+                var tracDurationElm = $('<td align="right">');
+                
+                trackNameElm.append('<div class="triangle-right"></div>'+'<span style="margin-left:15px">'+item.name+'</div>');
+                tracDurationElm.append(item.duration_ms+' ms');
+                trElm.append(trackNameElm);
+                trElm.append(tracDurationElm);
+
+               // contElm.append(item.disc_number);
+               // contElm.append(item.duration_ms);
+               // contElm.append(item.explicit);
+
+               // divElm.append(titElm);
+                //divElm.append(contElm);
+
+                $("#album_tracks_content").append(trElm);
+            });
+
+        });
+
+    }
+</script>
+<div id="artists_content">
+    <ul>
+
+    </ul>
+    <div id="details_content">
+        <div class="fa fa-times-circle-o" aria-hidden="true" id="inf_close"></div>
+        <div style="position: relative; width: 100%; display: inline-block; padding-top: 20px">
+            <div style="min-width:30%; position: relative; color: #fff; margin-top: 50px; display: inline-block; border: 0px red solid;"> 
+                <table id="album_general_info" width="100%">
+                </table>  
+            </div>
+            <div style="min-width:50%; position: relative; display: inline-block; margin-top: 50px; border: 0px blue solid; right: 100px; float: right;"> 
+                <table id="album_tracks_content" width="100%">
+
+                </table>        
+            </div>
+        </div>
+    </div>
+</div>
