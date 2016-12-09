@@ -1,0 +1,13 @@
+a)
+ 1. The Web is a platform.
+        We have gone from installable software on our PC, to software-services that are accessible online. 
+        All data and software is now available online.
+ 
+ 2. The Web is simple.
+        It facilitates the access and usage of web services using user-friendly interfaces. 
+
+ 3. The Web is participatory.
+        Web 2.0 has adopted a structure of participation that encourages users to enhance the application while 
+        they use it, instead of keeping it rigid and controlled.
+
+        

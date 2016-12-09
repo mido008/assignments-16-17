@@ -1,61 +1,46 @@
 <script type="text/javascript">
-    
-    // create audio element
-    var audioElm = document.createElement('audio');
-
-    // get albums from api
-    function getAlbums(data)
+    function getArtists(data)
     {
-        // close the popup using close button
+        
         $("#inf_close").on('click', function(){
             $("#details_content").fadeOut();
-            audioElm.pause();
-            $('.play_music').css({'display': 'inline-block'});
-            $('.stop_music').hide();
-            $(".playing_elem").val(-1);
-            $('#album_tracks_content tr').css({'color': '#fff'});
         });
-
-        // fetching the data albums items
-        data.albums.items.forEach(function(item){
-            // create li (list element)
-            var liElm = $('<li class="album">');
-            // create a div element 
+console.log('öööölll',data.artists.items)
+        data.artists.items.forEach(function(item){
+            console.log('äää',item)
+            var liElm = $('<li class="artists">');
             var extraElm = $('<div id="'+ item.id +'" class="fa fa-eye details" aria-hidden="true">');
-            var imgElm = $('<img style="border: 2px #ffffff solid;">');
-            var titElm = $('<span>');
+            var imgElm = $('<img style="border: 2px #ffffff solid; width: 304px; height: 304px;"><br>');
+            var titElm = $('<p style="color: #fff">');
+
+            
            // var songs = getAlbumsongs(titElm, item.href);
 
+            titElm.html(item.name);
             imgElm.attr('src', item.images[1].url);
             extraElm.hide();
             
-            // show album's details on click
             extraElm.on('click', function(element){
                 $("#details_content").fadeIn();
-                getAlbumInfo(element, item);
+                getartistInfo(element, item);
             });
 
-            // show the icon 'show-detail'
             imgElm.on('mouseenter', function(){
                 $('#'+item.id).fadeIn();
             });
-            // hide the icon 'show-detail'
             liElm.on('mouseout', function(){
                 $('#'+item.id).fadeOut();
             });
             
-            // append the item's elements to the listelement
             liElm.append(imgElm);
             liElm.append(titElm);
             liElm.append(extraElm);
-
-            // append the listelement to the divcontent
-            $('#albums_content ul').append(liElm);
+            console.log(liElm)
+            $('#artists_content ul').append(liElm);
         });
     }
 
-    // get album's infos
-    function getAlbumInfo(elem, item)
+    function getartistInfo(elem, item)
     {
         $.get(
             item.href,
@@ -153,47 +138,9 @@
                 var trElm = $('<tr valign="bottom" style="padding-top:10px; padding-bottom:10px; border-bottom:1px #4d652e solid">');
                 var trackNameElm = $('<td style="padding-top: 10px">');
                 var tracDurationElm = $('<td align="right">');
-
-                var playElm = $('<div class="play_music">');
-                var stopElm = $('<div class="stop_music">');
-                var playing = $('<input type="hidden" class="playing_elem" value="-1">');
-                trackNameElm.append(playElm);
-                trackNameElm.append(stopElm);
-                trackNameElm.append(playing);
-                trackNameElm.append('<span style="margin-left:15px">'+item.name+'</div>');
-                tracDurationElm.append(item.duration_ms+' ms');
-
-                // play the sound
                 
-                trackNameElm.on('click', function(){
-                    
-                    var current_play = playing.val();
-                    $(".playing_elem").val(-1);
-                    playing.val(current_play*(-1));
-                    audioElm.pause();
-                    audioElm.setAttribute('src', item.preview_url);
-                    
-                    
-                    if (playing.val() == 1) {
-                        audioElm.play();
-                        $('.play_music').css({'display': 'inline-block'});
-                        $('.stop_music').hide();
-                        $('#album_tracks_content tr').css({'color': '#fff'});
-                        trElm.css({'color': '#89ff83'});
-                        playElm.hide();
-                        stopElm.css({'display': 'inline-block'});
-
-                    } else {
-                        audioElm.pause();
-                        $('.play_music').css({'display': 'inline-block'});
-                        $('.stop_music').hide();
-                        trElm.css({'color': '#fff'});
-                        stopElm.hide();
-                        playElm.css({'display': 'inline-block'});
-                    }
-                    
-                   // audioElm item.preview_url
-                })
+                trackNameElm.append('<div class="triangle-right"></div>'+'<span style="margin-left:15px">'+item.name+'</div>');
+                tracDurationElm.append(item.duration_ms+' ms');
                 trElm.append(trackNameElm);
                 trElm.append(tracDurationElm);
 
@@ -205,19 +152,13 @@
                 //divElm.append(contElm);
 
                 $("#album_tracks_content").append(trElm);
-                $(audioElm).bind('ended',function(){
-                    $('.play_music').css({'display': 'inline-block'});
-                    $('.stop_music').hide();
-                    $(".playing_elem").val(-1);
-                    $('#album_tracks_content tr').css({'color': '#fff'});
-                });
             });
 
         });
 
     }
 </script>
-<div id="albums_content">
+<div id="artists_content">
     <ul>
 
     </ul>

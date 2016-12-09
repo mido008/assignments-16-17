@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Spotify Breakout</title>
+  <script src="https://use.fontawesome.com/b5ad55101b.js"></script>
+  <script src="bower_components/jquery/dist/jquery.min.js"></script>
+  <link rel="stylesheet" href="spotify-breakout.css">
+  <script>
+    'use strict';
+    $(document).ready(function() {
+      const searchURL = 'https://api.spotify.com/v1/search';
+      var req_type;
+
+      var content = $('#content');
+      req_type = $("#type_list input[type=radio]:checked").val();
+      switch($("#type_list input[type=radio]:checked").val()){
+            case 'playlist':
+              content.append('ä.ä.');
+              break;
+            case 'track':
+              content.append('kmkmkk');
+              break;
+            case 'album':
+              content.load('albums.html');
+              break;
+            case 'artist':
+              content.load('artist.html');
+              break;
+          }
+
+      $("#type_list input[type=radio]").on('change', function(type){
+        req_type = type.target.value;
+          
+          content.empty();
+          switch(type.target.value){
+            case 'playlist':
+              content.append('ä.ä.');
+              break;
+            case 'track':
+              content.append('kmkmkk');
+              break;
+            case 'album':
+              content.load('albums.html');
+              break;
+            case 'artist':
+              content.load('artist.html');
+              break;
+          }
+        });
+
+      $('#search_spoty').on('change keyup paste', function(){
+        
+        
+console.log(req_type);
+        $.get(searchURL, {
+          q: this.value,
+          type: req_type
+        }).done(function(data) {
+          var object_list;
+          switch(req_type){
+            case 'artist':
+                getArtists(data);
+              break;
+            case 'track':
+              object_list = data.tracks
+              break;
+            case 'album':
+              getAlbums(data);
+              break;
+            case 'playlist':
+              object_list = data.playlists
+              break;
+          }
+          console.log(data)
+          if (data && object_list && object_list.items) {
+            // first clear everything inside the body / container.
+            $('#content').empty();
+
+            // loop through the artists and generate some html for each one.
+
+            object_list.items.forEach(function(item) {
+              var divEl = $('<div style="position:relative; display: inline-block; margin-left: 10px;">');
+              var linkEl = $('<a>');
+              var imgEl = $('<img>');
+
+              // construct the image;
+              imgEl.attr('src', item.images && item.images.length ? item.images[0].url : null);
+              imgEl.attr('alt', item.name);
+
+              // construct the link
+              linkEl.attr('href', item.href)
+              linkEl.append(imgEl)
+              // add things together;
+              divEl.addClass('artist');
+              divEl.append(linkEl);
+              $('#content').append(divEl);
+            });
+          }
+        });
+      });
+
+
+    });
+  </script>
+</head>
+<body>
+<div class="main_search">
+  <div class="search_content">
+    <label> Search : </label>
+    <div style="position: relative; display: inline-block;">
+      <div class="fa fa-search search_icon"></div>
+      <input type="text" id='search_spoty'>
+    </div>
+    <div id="type_list">
+      <label>
+        <input type="radio" name="type" value="artist">
+          Artist
+      </label>
+      <label>
+        <input type="radio" name="type" value="album" checked>
+          Album
+      </label>
+      <label>
+        <input type="radio" name="type" value="track">
+          Track
+      </label>
+      <label>
+        <input type="radio" name="type" value="playlist">
+          Playlist
+      </label>
+    </div>
+  </div>
+</div>
+<div style="position: relative; display: inline-block; width:100%" id='content'>
+</div>
+  
+</body>
+</html>
