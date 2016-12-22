@@ -1,0 +1,22 @@
+1)
+    Screen scraping is the process of collecting screen display data from one application 
+    and translating it so that another application can display it. 
+    This is normally done to capture data from a legacy application in order to display it using 
+    a more modern user interface.
+
+
+    Screen scraping is the act of taking all the information that a person has posted on their 
+    Web site or social networking page and then using the information to break into the user’s 
+    account or to commit some other fraud involving identity theft.
+
+
+2)
+    * Many different businesses usually practicing email marketing:
+        Product review scrapes - this is an important one and the reason why many companies use it 
+        is so that they can keep an eye on their competitors.
+
+    * Usually companies selling specific products:
+        Scraping to create other websites. 
+        The purpose is to get similar data from different websites and then post all that data into one.
+
+    * 
